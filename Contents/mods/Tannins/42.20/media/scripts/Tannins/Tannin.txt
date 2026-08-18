@@ -114,7 +114,7 @@ module Tannins
                 inputs
                 {
                     item 1 [*],
-                    -fluid 0.1 [RubbingAlcohol] mode:mixture,
+                    -fluid 0.05 [RubbingAlcohol] mode:mixture,
                     item 1 tags[base:bowl] mode:destroy flags[IsFull;ItemCount],
                     -fluid 0.3 categories[Water] mode:mixture,
                     item 5 [Base.Splinters;Base.Twigs],
