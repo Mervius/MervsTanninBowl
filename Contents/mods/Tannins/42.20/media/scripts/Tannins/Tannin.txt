@@ -1,0 +1,127 @@
+module Tannins
+{
+    model UnusableWoodHand
+        {
+            mesh = WorldItems/UnusableWood,
+            scale = 0.3,
+            attachment Bip01_Prop2
+                {
+                    offset = 0.0 0.25 0.0,
+                    rotate = 90.0 0.0 0.0,
+                }
+        }
+
+    model BowlTannin
+        {
+            mesh = WorldItems/BowlOfGlaze,
+            texture = WorldItems/Bowl_Tannin,
+            scale = 0.5,
+            attachment Bip01_Prop1
+            {
+                offset = -0.0006 0.0219 0.0106,
+                rotate = 0.0 0.0 0.0,
+            }
+            attachment Bip01_Prop2
+            {
+                offset = -0.0221 -0.0228 0.0233,
+                rotate = -33.0903 -42.6982 -21.3566,
+                scale = 0.8961,
+            }
+        }
+
+    item TanninBowl
+        {
+            DisplayCategory = Material,
+            ItemType = base:normal,
+            Weight = 1.0,
+            Icon = Icons/TanninBowl,
+            StaticModel = Tannins.BowlTannin,
+            WorldStaticModel = Tannins.BowlTannin,
+            Tags = base:braintan,
+            Tooltip = Tooltip_item_TanninBowl,
+        }
+
+        timedAction CrushWoodIntoSplinters
+            {
+                metabolics = HeavyDomestic,
+                actionAnim = HammerSmashSurface,
+                sound = Hammering,
+                completionSound = BuildWoodenStructureLarge,
+                soundTime = animation_event,
+                prop1 = Base.ClubHammer,
+                prop2 = Tannins.UnusableWoodHand,
+                muscleStrainFactor = 0.0133,
+                muscleStrainSkill = Strength,
+                muscleStrainParts = Hand_R;ForeArm_R;UpperArm_R,
+            }
+
+        timedAction CrushPlankIntoScrapWood
+            {
+                metabolics = HeavyDomestic,
+                actionAnim = HammerSmashSurface,
+                sound = Hammering,
+                completionSound = BuildWoodenStructureLarge,
+                soundTime = animation_event,
+                prop1 = Base.ClubHammer,
+                prop2 = Base.Plank,
+                muscleStrainFactor = 0.0133,
+                muscleStrainSkill = Strength,
+                muscleStrainParts = Hand_R;ForeArm_R;UpperArm_R,
+            }
+
+        craftRecipe CreateSplintersFromScrapWood
+        {
+            SkillRequired = Strength:3,
+            timedAction = Tannins.CrushWoodIntoSplinters,
+            time = 80,
+            category = Carpentry,
+            Tags = AnySurfaceCraft;Carpentry;CanBeDoneInDark,
+            inputs
+            {
+                item 1 tags[base:clubhammer] mode:keep flags[MayDegradeVeryLight],
+                item 1 [Base.UnusableWood],
+            }
+            outputs
+            {
+                item 5 Base.Splinters,
+            }
+        }
+
+        craftRecipe CreateScrapWoodFromPlank
+                {
+                    SkillRequired = Strength:5,
+                    timedAction = Tannins.CrushPlankIntoScrapWood,
+                    time = 160,
+                    category = Carpentry,
+                    Tags = AnySurfaceCraft;Carpentry;CanBeDoneInDark,
+                    inputs
+                    {
+                        item 1 tags[base:clubhammer] mode:keep flags[MayDegradeVeryLight],
+                        item 1 [Base.Plank],
+                    }
+                    outputs
+                    {
+                        item 3 Base.UnusableWood,
+                    }
+                }
+
+        craftRecipe CreateTanninBowlFromSplinters
+            {
+                timedAction = MixingBowl,
+                time = 40,
+                category = Cooking,
+                Tags = InHandCraft;Cooking,
+                inputs
+                {
+                    item 1 [*],
+                    -fluid 0.1 [RubbingAlcohol] mode:mixture,
+                    item 1 tags[base:bowl] mode:destroy flags[IsFull;ItemCount],
+                    -fluid 0.3 categories[Water] mode:mixture,
+                    item 5 [Base.Splinters;Base.Twigs],
+                }
+                outputs
+                {
+                    item 1 Tannins.TanninBowl,
+                }
+            }
+}

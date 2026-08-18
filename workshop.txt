@@ -1,0 +1,6 @@
+version=1
+id=3783697598
+title=Merv's Tannin Bowl
+description=Adds a recipe to create a bowl of tannin for leather tanning out of wood splinters/twigs. In order to make wood scraps less annoying to get, they can be crafted from wood scraps. To make wood scraps less annoying to make, they can be crafter from wood planks.
+tags=Build 42;Items;Misc;Multiplayer;QoL
+visibility=public
