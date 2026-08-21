@@ -1,6 +1,7 @@
 name=Tannins
 id=Tannins
 author=Daniel Hagemeier
-description=Adds a tannin bowl from wood for more realistic leather tanning.
+description=Adds a tannin bowl from wood for alternative leather tanning.
 poster=poster.png
 icon=poster.png
+modversion=1.0.1
