@@ -12,7 +12,7 @@ local function patchRecipe(recipeID)
     inputs:remove(first)
 end
 
-local function OnTick(tick)
+local function OnInitGlobalModData(tick)
     if not MTB.init then
         MTB.init = true
         local sandbox = SandboxVars.Tannins.RequireAlcohol or false
@@ -22,4 +22,4 @@ local function OnTick(tick)
     end
 end
 
-Events.OnTick.Add(OnTick)
+Events.OnInitGlobalModData.Add(OnInitGlobalModData)
