@@ -1,0 +1,9 @@
+VERSION = 1,
+
+option Tannins.RequireAlcohol
+{
+	type = boolean,
+	default = true,
+	page = TanninBowl,
+	translation = MTB_RequireAlcohol,
+}
